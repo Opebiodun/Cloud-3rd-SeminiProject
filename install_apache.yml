@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Set timezone to Africa/Lagos
+      timezone:
+        name: Africa/Lagos
+
+    - name: Create HTML file
+      copy:
+        content: "<html><head><title>Altschool Mini-Project html test</title></head><body><h1>Hello from Altschool-Africa/Lagos</h1></body></html>"
+        dest: /var/www/html/index.html
+
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
